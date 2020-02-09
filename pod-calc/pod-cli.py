@@ -1,6 +1,17 @@
 import math
 import click
 
+def rd_total():
+    rd_list={"rd1":0,"rd2":0,"rd3":0,"rd4":0,"rd5":0,"rd6":0,"rd7":0,"rd8":0}
+
+    for range in rd_list:
+        rd_list[range]=float(input("Enter the distance in meters: "))
+
+    #Calculate the Range of Detection - AMDR from distance inputs
+    Rd=sum(rd_list.values())/len(rd_list.values())
+
+    return(Rd)
+
 #note, numbers do not need to be Metric, but for consistency, put them all in metric, do not mix Metric and Imperial
 
 @click.group()
@@ -14,20 +25,9 @@ def rd():
 
 @rd.command('rd_calc')
 def rd_calc():
-    print("Get the Estimated POD Percentage")
-    print("For consistency use the same distance measurements (recommend using metric)")
-    print("First get the Range of Detection / AMDR for the search assignment")
-
-    rd_list={"rd1":0,"rd2":0,"rd3":0,"rd4":0,"rd5":0,"rd6":0,"rd7":0,"rd8":0}
-
-    for range in rd_list:
-        rd_list[range]=float(input("Enter the distance in meters: "))
-
-    #Calculate the Range of Detection - AMDR from distance inputs
-    Rd=sum(rd_list.values())/len(rd_list.values())
-
+    print("Calculate the Range of Detection / AMDR for the search assignment using 8 legs")
+    Rd=rd_total()
     print("Range of Detection/AMDR (Average meters)",round(Rd,2))
-    return(Rd)
 
 
 ######################  pod calculator  ###########################
@@ -42,16 +42,18 @@ def pod_calc():
     print("For consistency use the same distance measurements (recommend using metric)")
     print("First get the Range of Detection / AMDR for the search assignment")
 
-    rd_list={"rd1":0,"rd2":0,"rd3":0,"rd4":0,"rd5":0,"rd6":0,"rd7":0,"rd8":0}
+    #rd_list={"rd1":0,"rd2":0,"rd3":0,"rd4":0,"rd5":0,"rd6":0,"rd7":0,"rd8":0}
 
-    for range in rd_list:
-        rd_list[range]=float(input("Enter the distance in meters: "))
+    #for range in rd_list:
+    #    rd_list[range]=float(input("Enter the distance in meters: "))
 
     #Calculate the Range of Detection - AMDR from distance inputs
-    Rd=sum(rd_list.values())/len(rd_list.values())
+    #Rd=sum(rd_list.values())/len(rd_list.values())
 
+    #print("Range of Detection/AMDR (Average meters)",round(Rd,2))
+
+    Rd=rd_total()
     print("Range of Detection/AMDR (Average meters)",round(Rd,2))
-
 
     # the correction factors for low, medium, high visibility classes
     Cf={"low":1.1,"med":1.6,"high":1.8}
